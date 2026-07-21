@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Local / production configuration — TEMPLATE.
+ *
+ * Copy this file to config.local.php and fill in the real values:
+ *
+ *     cp config.local.php.example config.local.php
+ *
+ * config.local.php is gitignored and must never be committed.
+ */
+
+return [
+    // GitHub webhook secret. Must match the secret configured on the repo's
+    // webhook (Settings -> Webhooks -> Secret).
+    'webhook_secret' => 'REPLACE_WITH_GITHUB_WEBHOOK_SECRET',
+];
