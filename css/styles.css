@@ -389,10 +389,12 @@ h1, h2, h3 {
   max-width: none;  /* overrides the global img { max-width: 100% } */
   height: auto;     /* overrides the width/height HTML attributes */
   margin: calc(var(--card-pad-y) * -1) calc(var(--card-pad-x) * -1) 22px;
-  aspect-ratio: 2 / 1;
-  object-fit: cover;
-  object-position: top center;
-  background: var(--tint);
+  /* Matches the screenshots' native landscape ratio. `contain` guarantees the
+     whole frame is shown — never cropped, never stretched — while the fixed
+     ratio keeps every card's banner exactly the same height. */
+  aspect-ratio: 2.31 / 1;
+  object-fit: contain;
+  background: var(--white);
   border-bottom: 1px solid var(--line);
 }
 
@@ -403,7 +405,7 @@ h1, h2, h3 {
   background: linear-gradient(135deg, var(--tint) 0%, var(--tint-warm) 100%);
   color: var(--purple);
 }
-.card__media--placeholder svg { width: 44px; height: 44px; }
+.card__media--placeholder svg { width: 40px; height: 40px; }
 
 .card__title {
   font-size: 1.32rem;
