@@ -364,13 +364,17 @@ h1, h2, h3 {
 }
 
 .card {
+  --card-pad-x: 28px;
+  --card-pad-y: 30px;
   display: flex;
   flex-direction: column;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 30px 28px;
+  padding: var(--card-pad-y) var(--card-pad-x);
   box-shadow: var(--shadow);
+  /* Clips the full-bleed screenshot to the card's rounded corners. */
+  overflow: hidden;
   transition: transform .25s, box-shadow .25s, border-color .25s;
 }
 .card:hover {
@@ -379,16 +383,27 @@ h1, h2, h3 {
   box-shadow: 0 4px 8px rgba(27,42,91,.05), 0 18px 44px rgba(27,42,91,.13);
 }
 
-.card__icon {
-  width: 50px; height: 50px;
-  border-radius: 14px;
+/* Project screenshot: bleeds to the card edges by cancelling the card padding. */
+.card__media {
+  width: calc(100% + var(--card-pad-x) * 2);
+  max-width: none;  /* overrides the global img { max-width: 100% } */
+  height: auto;     /* overrides the width/height HTML attributes */
+  margin: calc(var(--card-pad-y) * -1) calc(var(--card-pad-x) * -1) 22px;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  object-position: top center;
+  background: var(--tint);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Stand-in banner for cards that have no screenshot yet. */
+.card__media--placeholder {
   display: grid;
   place-items: center;
-  background: var(--tint);
+  background: linear-gradient(135deg, var(--tint) 0%, var(--tint-warm) 100%);
   color: var(--purple);
-  margin-bottom: 20px;
 }
-.card__icon svg { width: 26px; height: 26px; }
+.card__media--placeholder svg { width: 44px; height: 44px; }
 
 .card__title {
   font-size: 1.32rem;
@@ -559,7 +574,8 @@ h1, h2, h3 {
 @media (max-width: 480px) {
   body { font-size: 16px; }
   .wrap, .wrap--narrow, .nav__inner, .hero__inner { width: calc(100% - 36px); }
-  .card { padding: 26px 22px; }
+  /* Set the vars, not padding directly, so .card__media stays flush. */
+  .card { --card-pad-x: 22px; --card-pad-y: 26px; }
   .hero__actions .btn { width: 100%; }
   .btn--lg { padding: 16px 22px; font-size: .84rem; }
 }
