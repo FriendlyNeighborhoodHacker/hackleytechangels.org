@@ -24,8 +24,8 @@ if (empty($config['webhook_secret'])) {
 
 $secret = $config['webhook_secret'];
 
-$deployScript = '/home/lillyjane/deploy_scripts/kimanicalvin.com.deploy.sh';
-$logFile = '/home/lillyjane/deploy_scripts/kimanicalvin.com.deploy.log';
+$deployScript = '/home/lillyjane/deploy_scripts/hackleytechangels.org.deploy.sh';
+$logFile = '/home/lillyjane/deploy_scripts/hackleytechangels.org.deploy.log';
 
 $payload = file_get_contents('php://input');
 $signature = $_SERVER['HTTP_X_HUB_SIGNATURE_256'] ?? '';
