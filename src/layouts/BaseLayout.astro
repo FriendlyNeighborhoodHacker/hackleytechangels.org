@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { title = siteConfig.siteName, description = siteConfig.description } = Astro.props;
+const gaId = siteConfig.gaMeasurementId;
 ---
 
 <!DOCTYPE html>
@@ -22,6 +23,18 @@ const { title = siteConfig.siteName, description = siteConfig.description } = As
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Cormorant+Garamond:wght@500;600&display=swap">
+  {gaId && (
+    <>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+      <script is:inline define:vars={{ gaId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', gaId);
+      </script>
+    </>
+  )}
 </head>
 <body>
   <slot />

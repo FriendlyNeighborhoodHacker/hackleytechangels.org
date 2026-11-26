@@ -49,6 +49,8 @@ function go(r: string) {
   setChrome(r);
   clearTimeout(leaveT); leaveT = window.setTimeout(() => from.classList.remove('leaving'), 650);
   current = r;
+  // Google Analytics (loaded in BaseLayout when siteConfig.gaMeasurementId is set): each view counts as a page
+  (window as any).gtag?.('event', 'page_view', { page_title: document.title, page_location: location.href });
 }
 
 // first paint: drop doves in place, then let the current view's text stagger in
