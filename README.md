@@ -51,7 +51,8 @@ Policies" link.
 The form posts to `public/contact.php`, which checks the fields and emails the
 message through an SMTP account (`public/mailer.php`, no dependencies) to the
 address in `CONTACT_TO`. The visitor's address goes in Reply-To. Nothing is
-stored. A hidden honeypot field and a limit of 5 messages per IP per hour keep
+stored. Once it is sent the visitor lands on a thank-you view (`/#thanks`,
+`src/components/Thanks.astro`) with a link back to the home page. A hidden honeypot field and a limit of 5 messages per IP per hour keep
 bots down.
 
 The SMTP account and the recipient are in `config.local.php` on the server

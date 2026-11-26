@@ -1,0 +1,16 @@
+---
+import Arrow from './Arrow.astro';
+import PageHead from './PageHead.astro';
+
+// Where the contact form sends people once their message has gone (src/scripts/contact.ts).
+// Not in the menu and not part of the scroll-through order; see EXTRA in src/scripts/site.ts.
+---
+
+<section id="thanks" class="view sub" aria-labelledby="t-title">
+  <PageHead id="t-title" top="THANK" bottom="YOU">
+    Your message has been sent.<br class="br"> We&rsquo;ll get back to you soon.
+    <div slot="after" class="actions">
+      <a class="cta st glass" style="--i:4" href="#"><span>Back to home</span><Arrow /></a>
+    </div>
+  </PageHead>
+</section>

@@ -205,6 +205,8 @@ body[data-route=story] .d-a{left:13%;top:7%;width:clamp(56px,6vw,100px)}
 body[data-route=story] .d-e{left:80%;top:16%;width:clamp(70px,7.5vw,124px)}
 body[data-route=contact] .d-a{left:1.5%;top:72%;width:clamp(64px,7vw,116px)}
 body[data-route=contact] .d-e{left:85%;top:9%;width:clamp(52px,5.4vw,90px)}
+body[data-route=thanks] .d-a{left:10%;top:12%;width:clamp(64px,7vw,116px)}
+body[data-route=thanks] .d-e{left:84%;top:16%;width:clamp(52px,5.4vw,90px)}
 @media (max-width:900px){
   .sub{padding-top:clamp(150px,20vh,190px)}
   body:not([data-route=home]) .d-a{left:4%;top:6.4%;width:clamp(44px,10vw,80px)}

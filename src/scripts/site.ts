@@ -6,15 +6,20 @@ import { siteConfig } from '../data/siteConfig';
 
 const html = document.documentElement, body = document.body;
 const ORDER = ['home', ...menu.map(m => m.route)];
-const TITLES: Record<string, string> = { home: siteConfig.siteName, ...Object.fromEntries(menu.map(m => [m.route, m.title])) };
+/* views reached by a link rather than the menu: no nav entry, and scrolling past their ends goes nowhere */
+const EXTRA: Record<string, string> = { thanks: 'Thank You' };
+const ROUTES = [...ORDER, ...Object.keys(EXTRA)];
+const TITLES: Record<string, string> = { home: siteConfig.siteName, ...Object.fromEntries(menu.map(m => [m.route, m.title])), ...EXTRA };
 /* names used in the "Keep scrolling for …" cue */
 const NAMES: Record<string, string> = { ...TITLES, home: 'Home' };
-const views = Object.fromEntries(ORDER.map(k => [k, document.getElementById(k)!])) as Record<string, HTMLElement>;
+const views = Object.fromEntries(ROUTES.map(k => [k, document.getElementById(k)!])) as Record<string, HTMLElement>;
+/* position in the site's running order; extra views count as coming after the last page */
+const pos = (r: string) => { const i = ORDER.indexOf(r); return i < 0 ? ORDER.length - 1 : i; };
 const subs = [...document.querySelectorAll<HTMLElement>('.sub')];
 const doves = [...document.querySelectorAll<HTMLElement>('.dove')];
 const offDoves = doves.filter(d => !/d-a|d-e/.test(d.className));   // the ones that leave the frame on sub-pages
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const routeOf = (h: string) => { const k = (h || '').replace(/^#/, ''); return ORDER.includes(k) ? k : 'home'; };
+const routeOf = (h: string) => { const k = (h || '').replace(/^#/, ''); return ROUTES.includes(k) ? k : 'home'; };
 const frame = () => new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
 let current = routeOf(location.hash);
 
@@ -28,7 +33,7 @@ function setChrome(r: string) {
 let leaveT = 0;
 function go(r: string) {
   if (r === current) return;
-  const from = views[current], to = views[r], dir = ORDER.indexOf(r) < ORDER.indexOf(current) ? 'back' : 'fwd';
+  const from = views[current], to = views[r], dir = ROUTES.indexOf(r) < ROUTES.indexOf(current) ? 'back' : 'fwd';
   if (r === 'home') {                          // park departed doves on the left, unseen, so they fly back in forwards
     offDoves.forEach(d => d.classList.add('no-tr'));
     body.dataset.dir = 'back'; void body.offsetWidth;
@@ -130,7 +135,7 @@ function pullTick() {
 /* one continuous sky: it drifts with where you are in the whole site (page order + how far down the page) */
 const sky = document.getElementById('sky')!;
 function journey() {
-  const i = ORDER.indexOf(current), v = views[current];
+  const i = pos(current), v = views[current];
   const f = current === 'home' ? 0 : v.scrollTop / Math.max(1, maxY(v));
   sky.style.setProperty('--j', ((i + f * .85) / (ORDER.length - 1)).toFixed(4));
 }
@@ -146,7 +151,7 @@ function placeDot() {
 addEventListener('resize', placeDot);
 document.fonts?.ready.then(placeDot);
 
-const neighbour = (dir: number): string | undefined => ORDER[ORDER.indexOf(current) + dir];
+const neighbour = (dir: number): string | undefined => ORDER.includes(current) ? ORDER[ORDER.indexOf(current) + dir] : undefined;
 function showHint(dir: number) {
   const n = neighbour(dir);
   if (!n) { hint.classList.remove('on'); return; }

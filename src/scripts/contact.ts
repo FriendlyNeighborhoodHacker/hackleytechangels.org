@@ -1,5 +1,6 @@
 /* Contact form: validates, then posts to public/contact.php, which emails the message
-   through the SMTP account in the server's config.local.php. */
+   through the SMTP account in the server's config.local.php. On success it shows the
+   thank-you view (#thanks, src/components/Thanks.astro). */
 import { siteConfig } from '../data/siteConfig';
 
 const form = document.querySelector<HTMLFormElement>('.form')!, status = form.querySelector<HTMLElement>('.status')!;
@@ -32,8 +33,9 @@ form.addEventListener('submit', async e => {
     const res = await fetch(siteConfig.contactEndpoint, { method: 'POST', body: data });
     const out: { ok?: boolean; error?: string } = await res.json();
     if (out.ok) {
-      say('Thanks — your message is on its way.');
-      form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[name=name],[name=email],[name=message]').forEach(el => { el.value = ''; });
+      // on to the thank-you view; the form is cleared behind it so coming back starts fresh
+      form.reset(); status.textContent = ''; status.classList.remove('show');
+      location.hash = '#thanks';
     } else say(ERRORS[out.error ?? ''] ?? FAILED);
   } catch {
     // no PHP behind `astro dev` / `astro preview`, or the network dropped

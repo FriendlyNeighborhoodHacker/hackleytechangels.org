@@ -112,7 +112,7 @@ export const caseStudies: CaseStudy[] = [
       { label: 'Calendar', text: 'Change one week of a lesson: its length, attendance, a substitute teacher or the location, without touching the standing booking.' },
     ],
     skills: ['PHP', 'MySQL', 'Scheduling logic', 'Admin dashboards', 'Authentication'],
-    link: { label: 'Open the portal', href: 'https://portal.bronxconservatory.org/login.php' },
+    link: { label: 'Read the docs', href: 'https://bcmdocs.lillyrosenthal.org/' },
     note: 'Shown with test data. Lilly built the portal; the conservatory’s main website is by another studio.',
     media: {
       kind: 'windows',
