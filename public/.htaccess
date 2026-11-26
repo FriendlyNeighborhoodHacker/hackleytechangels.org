@@ -1,0 +1,6 @@
+Options -Indexes
+
+# Secrets and include-only PHP are never served.
+<FilesMatch "^(config\.local\.php(\.example)?|mailer\.php)$">
+  Require all denied
+</FilesMatch>

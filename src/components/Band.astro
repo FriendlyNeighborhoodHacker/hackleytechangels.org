@@ -1,0 +1,19 @@
+---
+import Arrow from './Arrow.astro';
+
+// The glass call-to-action strip at the bottom of a page.
+// Default slot = the heading (may contain <em>).
+interface Props {
+  text: string;
+  cta: string;
+  href: string;
+  /** Stagger position in the page's entrance animation. */
+  i: number;
+}
+const { text, cta, href, i } = Astro.props;
+---
+
+<div class="band st glass" style={`--i:${i}`}>
+  <div><h3><slot /></h3><p>{text}</p></div>
+  <a class="cta solid" href={href}><span>{cta}</span><Arrow /></a>
+</div>

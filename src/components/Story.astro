@@ -1,0 +1,20 @@
+---
+import { chapters } from '../data/story';
+import Band from './Band.astro';
+import PageHead from './PageHead.astro';
+---
+
+<section id="story" class="view sub" aria-labelledby="s-title">
+  <PageHead id="s-title" top="WHY" bottom="WE BUILD">
+    Every piece of technology that matters started as an idea<br class="br"> someone was willing to believe in.
+  </PageHead>
+  <div class="chapters">
+    {chapters.map((ch, n) => (
+      <div class="chapter st" style={`--i:${4 + n}`}>
+        <div><span class="num">{String(n + 1).padStart(2, '0')}</span><h3>{ch.title}</h3></div>
+        <div>{ch.paragraphs.map((text) => <p>{text}</p>)}</div>
+      </div>
+    ))}
+  </div>
+  <Band i={5 + chapters.length} text="Ideas brought to life by Hackley students." cta="View portfolio" href="#portfolio">See what we&rsquo;ve <em>made</em>.</Band>
+</section>

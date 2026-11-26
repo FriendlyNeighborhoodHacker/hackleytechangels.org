@@ -1,0 +1,37 @@
+<?php
+// Server-only configuration for hackleytechangels.org: the GitHub webhook
+// secret and the SMTP account the contact form sends through.
+//
+// Copy to ~/deploy/hackleytechangels.org.secrets/config.local.php on the server
+// and fill in (chmod 600). deploy/hackleytechangels.org.sh installs it into the
+// web root on every deploy, next to gitwebhook.php and contact.php, which read
+// it. That copy in the secrets directory is the master: edit it there, then
+// redeploy. Never commit the filled-in file.
+
+// ---- GitHub webhook (public/gitwebhook.php) ----
+// Same value as the "Secret" field of the GitHub webhook; '' disables the
+// endpoint. Generate with:  php -r 'echo bin2hex(random_bytes(32)), "\n";'
+// On a push to WEBHOOK_BRANCH the webhook runs DEPLOY_SCRIPT (the copy of
+// deploy/hackleytechangels.org.sh kept outside the checkout) and appends its
+// output to DEPLOY_LOG. Replace SITE_USER with the site's unix user.
+define('WEBHOOK_SECRET', '');
+define('WEBHOOK_BRANCH', 'main');
+define('DEPLOY_SCRIPT', '/home/SITE_USER/deploy/hackleytechangels.org.sh');
+define('DEPLOY_LOG', '/home/SITE_USER/deploy/hackleytechangels.org.deploy.log');
+
+// ---- SMTP for the contact form (public/contact.php) ----
+// Same constant names as the portal.bronxconservatory.org and
+// neon.everosenthal.com mailers, so known-working values drop in.
+define('SMTP_HOST', 'smtp.gmail.com');
+define('SMTP_PORT', 587);              // 587 for STARTTLS, 465 for SSL
+define('SMTP_SECURE', 'tls');          // 'tls' (STARTTLS) or 'ssl'
+define('SMTP_USER', '');               // e.g. the Gmail address
+define('SMTP_PASS', '');               // app password
+define('SMTP_FROM_EMAIL', '');         // blank = SMTP_USER
+define('SMTP_FROM_NAME', 'Hackley Tech Angels website');
+
+// Who receives contact-form messages: one address, or an array of addresses.
+// The visitor's address goes in Reply-To, so replying answers them.
+// While this (or SMTP_HOST / SMTP_USER / SMTP_PASS) is blank, the form tells
+// visitors the inbox is not connected yet.
+define('CONTACT_TO', '');

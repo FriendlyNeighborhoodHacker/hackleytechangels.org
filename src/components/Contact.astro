@@ -1,0 +1,43 @@
+---
+import Arrow from './Arrow.astro';
+import PageHead from './PageHead.astro';
+
+// src/scripts/contact.ts posts the form to public/contact.php, which emails it.
+// `value` is what lands in the email subject; `label` is the chip text.
+// Keep the values in step with $topics in public/contact.php.
+const topics = [
+  { value: 'Join the Angels', label: 'Join' },
+  { value: 'Pitch a project', label: 'Pitch a project' },
+  { value: 'Collaborate', label: 'Collaborate' },
+  { value: 'Something else', label: 'Something else' },
+];
+---
+
+<section id="contact" class="view sub" aria-labelledby="c-title">
+  <PageHead id="c-title" top="SAY" bottom="HELLO">
+    Have an idea, a project or a question? Want to join?<br class="br"> We&rsquo;d love to hear from you.
+  </PageHead>
+  <div class="contact">
+    <form class="form st glass" style="--i:4" novalidate>
+      <div class="row">
+        <label class="field"><span>Name</span><input name="name" autocomplete="name" placeholder="Your name" required></label>
+        <label class="field"><span>Email</span><input name="email" type="email" autocomplete="email" placeholder="you@example.com" required></label>
+      </div>
+      <fieldset class="topics">
+        <legend>I&rsquo;m reaching out to</legend>
+        <div class="chips">
+          {topics.map((t, n) => (
+            <label><input type="radio" name="topic" value={t.value} checked={n === 0}><span>{t.label}</span></label>
+          ))}
+        </div>
+      </fieldset>
+      <label class="field"><span>Message</span><textarea name="message" rows="4" placeholder="Tell us a little about it" required></textarea></label>
+      {/* Honeypot: hidden from people, tempting to bots. contact.php drops anything that fills it. */}
+      <div class="hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <div class="send">
+        <button class="cta solid" type="submit"><span>Send message</span><Arrow /></button>
+        <p class="status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </div>
+</section>

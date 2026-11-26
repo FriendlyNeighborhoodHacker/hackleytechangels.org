@@ -1,0 +1,22 @@
+---
+import { menu } from '../data/menu';
+import { siteConfig } from '../data/siteConfig';
+
+// The logo (Home) sits in the middle of the menu.
+const half = Math.ceil(menu.length / 2);
+const left = menu.slice(0, half);
+const right = menu.slice(half);
+---
+
+<nav class="rise glass">
+  <span class="nav-dot" aria-hidden="true"></span>
+  {left.map((item) => (
+    <a class="link" href={`#${item.route}`} data-route-link={item.route}>{item.name}</a>
+  ))}
+  <a class="mark" href="#" aria-label={`${siteConfig.siteName} home`}>
+    <svg viewBox="0 0 535 509" fill="#fdf6ea" aria-hidden="true"><use href="#ha-logo"/></svg>
+  </a>
+  {right.map((item) => (
+    <a class="link" href={`#${item.route}`} data-route-link={item.route}>{item.name}</a>
+  ))}
+</nav>

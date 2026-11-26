@@ -1,0 +1,10 @@
+---
+// A terminal window. `html` is the screen contents (whitespace is preserved).
+interface Props {
+  title: string;
+  html: string;
+}
+const { title, html } = Astro.props;
+---
+
+<figure class="term"><div class="bar"><i></i><i></i><i></i><span>{title}</span></div><pre set:html={html} /></figure>

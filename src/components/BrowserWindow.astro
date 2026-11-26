@@ -1,0 +1,13 @@
+---
+import { Image } from 'astro:assets';
+import type { Shot } from '../data/portfolio';
+
+// A screenshot framed as a browser window with an address bar.
+interface Props {
+  shot: Shot;
+  class?: string;
+}
+const { shot, class: className = '' } = Astro.props;
+---
+
+<figure class:list={['win', className]}><div class="bar"><i></i><i></i><i></i><span>{shot.url}</span></div><Image src={shot.src} alt={shot.alt} /></figure>

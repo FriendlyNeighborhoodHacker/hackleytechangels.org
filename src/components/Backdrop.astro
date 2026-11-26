@@ -1,0 +1,30 @@
+---
+// The painted sky behind every view, and the flock of doves that crosses it.
+// Dove positions per page live in global.css (.d-a … .d-f, "Dove formations").
+// Per dove: --rot tilt, --fl wingbeat length, --dl wingbeat offset, --d depth (shadow size).
+const doves = [
+  { id: 'a', rot: '-11deg', fl: '.64s', dl: '0s', d: 1.6, hideSm: false },
+  { id: 'b', rot: '-15deg', fl: '.54s', dl: '-.21s', d: 1.1, hideSm: true },
+  { id: 'c', rot: '-17deg', fl: '.47s', dl: '-.09s', d: 0.8, hideSm: false },
+  { id: 'd', rot: '-7deg', fl: '.41s', dl: '-.3s', d: 0.5, hideSm: true },
+  { id: 'e', rot: '-5deg', fl: '.5s', dl: '-.36s', d: 0.9, hideSm: false },
+  { id: 'f', rot: '-13deg', fl: '.44s', dl: '-.14s', d: 0.6, hideSm: true },
+];
+---
+
+<div id="backdrop" aria-hidden="true">
+  <div id="sky"></div>
+  <div class="warm"></div>
+  <div class="dim"></div>
+  <div class="vignette"></div>
+  <div class="grain"></div>
+</div>
+
+{/* Flock: rises from the lower-left foreground, arcs over the title, exits upper-right. Size = depth. */}
+{doves.map((dove) => (
+  <div
+    class:list={['dove', `d-${dove.id}`, { 'hide-sm': dove.hideSm }]}
+    style={`--rot:${dove.rot};--fl:${dove.fl};--dl:${dove.dl};--d:${dove.d}`}
+    aria-hidden="true"
+  ><i></i></div>
+))}

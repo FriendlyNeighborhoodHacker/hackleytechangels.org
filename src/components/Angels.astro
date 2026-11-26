@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+import { angels } from '../data/angels';
+import Band from './Band.astro';
+import PageHead from './PageHead.astro';
+
+const no = (n: number) => `No. ${String(n + 1).padStart(2, '0')}`;
+---
+
+<section id="angels" class="view sub" aria-labelledby="a-title">
+  <PageHead id="a-title" top="THE" bottom="ANGELS">The students behind Hackley Tech Angels.</PageHead>
+  <div class="angels">
+    {angels.map((a, n) => (
+      <article
+        class="angel st"
+        style={`--ph:${a.fit.height};--pb:${a.fit.bottom};--px:${a.fit.offsetX};--hx:${a.fit.haloX};--i:${4 + n};--bp:${a.art.position};--h:${a.art.hue};--sat:${a.art.saturation}`}
+      >
+        <span class="art"></span>
+        <span class="no">{no(n)}</span>
+        <Image class="portrait" src={a.portrait} alt={a.name} width={Math.round(a.portrait.width * 0.75)} loading="eager" />
+        <div class="meta"><h3>{a.name}</h3><span class="role">{a.role}</span></div>
+      </article>
+    ))}
+  </div>
+  <Band i={5 + angels.length} text="We're always looking for students with ideas worth chasing." cta="Get in touch" href="#contact">Want to <em>build</em> with us?</Band>
+</section>

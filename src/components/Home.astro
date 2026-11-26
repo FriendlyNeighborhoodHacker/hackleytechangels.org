@@ -1,0 +1,16 @@
+---
+import Arrow from './Arrow.astro';
+// The neon title is split into one "tube" per letter by src/scripts/nixie.ts.
+---
+
+<main id="home" class="view">
+  <h1 class="nixie st" style="--i:2" aria-label="Tech Angels"><span class="spill" aria-hidden="true"></span><span class="row">TECH</span><span class="row">ANGELS</span></h1>
+  <p class="lede st" style="--i:4">A group of student builders, developers and innovators<br class="br"> turning ideas into technology that makes a difference.</p>
+  <div class="actions">
+    <a class="cta st glass" style="--i:5" href="#portfolio">
+      <span>Enter Portfolio</span>
+      <Arrow />
+    </a>
+    <a class="ghost st hide-sm" style="--i:6" href="#story">Our story</a>
+  </div>
+</main>

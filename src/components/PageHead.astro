@@ -1,0 +1,18 @@
+---
+// The two-line heading at the top of every sub-page, with its intro line.
+// Default slot = the intro text; slot "after" = anything under it (the portfolio's section pills).
+interface Props {
+  /** id of the <h2>, referenced by the section's aria-labelledby. */
+  id: string;
+  /** First (small word) and second line of the heading. */
+  top: string;
+  bottom: string;
+}
+const { id, top, bottom } = Astro.props;
+---
+
+<header class="p-head">
+  <h2 id={id}><span class="serif st" style="--i:1">{top}</span><span class="sans st" style="--i:2">{bottom}</span></h2>
+  <p class="lede st" style="--i:3"><slot /></p>
+  <slot name="after" />
+</header>
