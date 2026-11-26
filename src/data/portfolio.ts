@@ -66,7 +66,7 @@ export const caseStudies: CaseStudy[] = [
       { label: 'Platforms', text: 'A PHP web app and API, a Python chat server that pushes messages live, and a native Swift iOS app.' },
     ],
     skills: ['PHP', 'Swift / iOS', 'Python', 'MySQL', 'Google Sign-In', 'Security'],
-    link: { label: 'Read the docs', href: 'https://docs.hackleyclubz.org/' },
+    link: { label: 'Read the docs', href: 'https://docs.hackleyclubz.org/walkthroughs/overview/' },
     note: 'The app is private to Hackley. Screens are from the public walkthrough videos.',
     media: {
       kind: 'phones',
